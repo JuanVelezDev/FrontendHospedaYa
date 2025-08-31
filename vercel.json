@@ -1,15 +1,60 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+      "source": "/login",
+      "destination": "/login.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/register.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/pages/owner-dashboard/owner_dashboard.html"
+    },
+    {
+      "source": "/publish",
+      "destination": "/pages/publish-property/index.html"
+    },
+    {
+      "source": "/search",
+      "destination": "/pages/students-serch/student.html"
+    },
+    {
+      "source": "/booking",
+      "destination": "/pages/student-booking/student_booking.html"
+    },
+    {
+      "source": "/property/:id",
+      "destination": "/pages/property-description/property_description.html"
+    },
+    {
+      "source": "/users",
+      "destination": "/pages/users/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
     }
   ]
 }
