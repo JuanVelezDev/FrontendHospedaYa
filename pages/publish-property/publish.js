@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chooseFilesBtn = document.querySelector('.choose-files-btn');
     const fileInput = document.createElement('input');
     const logoutBtn = document.querySelector('.logout-btn');
+    let selectedFiles = [];
     
     // Función para obtener y mostrar el nombre del usuario logueado
     function displayUserName() {
