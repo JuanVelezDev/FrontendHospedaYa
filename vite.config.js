@@ -12,7 +12,8 @@ export default defineConfig({
                 publishProperty: 'pages/publish-property/index.html',
                 studentBooking: 'pages/student-booking/student_booking.html',
                 studentsSerch: 'pages/students-serch/student.html',
-                users: 'pages/users/index.html'
+                users: 'pages/users/index.html',
+                propertyDescription: 'pages/property-description/property_description.html'
             }
         }
     }
