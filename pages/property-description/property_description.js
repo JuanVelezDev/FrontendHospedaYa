@@ -5,10 +5,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
         const aptRes = await fetch(`https://backendhospedaya.onrender.com/apartment`);
         const apartments = await aptRes.json();
+        console.log(apartments);
         const apartment = apartments.find(a => a.apartment_id == apartmentId);
+        console.log(apartment);
 
         const photoRes = await fetch(`https://backendhospedaya.onrender.com/apartment/${apartmentId}/photos`);
         const photos = photoRes.ok ? await photoRes.json() : [];
+        console.log(photos);
 
         document.querySelector(".title").textContent = apartment.title;
         document.querySelector(".price").textContent = `$${apartment.price}/month`;
