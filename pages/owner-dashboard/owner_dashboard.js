@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Mis propiedades
     async function fetchMisPropiedades() {
         try {
-            const res = await fetch(`${API_URL}/apartment`);
+            const res = await fetch(`${API_URL}apartment`);
             const apartments = await res.json();
             const misProps = apartments.filter(a => a.user_id == userId);
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Solicitudes pendientes
     async function fetchSolicitudesPendientes() {
         try {
-            const res = await fetch(`${API_URL}/booking/owner/${userId}/pending`);
+            const res = await fetch(`${API_URL}booking/owner/${userId}/pending`);
             const data = await res.json();
 
             solicitudesPendientesEl.textContent = data.length;
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Todas las solicitudes
     async function fetchTodasSolicitudes() {
         try {
-            const res = await fetch(`${API_URL}/booking/owner/${userId}/all`);
+            const res = await fetch(`${API_URL}booking/owner/${userId}/all`);
             const data = await res.json();
 
             if (data.length === 0) {
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Aprobar solicitud
     window.aprobarSolicitud = async function (requestId) {
         try {
-            const res = await fetch(`${API_URL}/booking/${requestId}/approve`, { method: "PUT" });
+            const res = await fetch(`${API_URL}booking/${requestId}/approve`, { method: "PUT" });
             if (!res.ok) throw new Error("Error aprobando solicitud");
 
             Swal.fire("✅ Aprobada", "La solicitud fue aprobada", "success");
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Rechazar solicitud
     window.rechazarSolicitud = async function (requestId) {
         try {
-            const res = await fetch(`${API_URL}/booking/${requestId}/reject`, { method: "PUT" });
+            const res = await fetch(`${API_URL}booking/${requestId}/reject`, { method: "PUT" });
             if (!res.ok) throw new Error("Error rechazando solicitud");
 
             Swal.fire("❌ Rechazada", "La solicitud fue rechazada", "success");
