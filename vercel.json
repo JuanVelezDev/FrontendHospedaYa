@@ -9,10 +9,6 @@
       "destination": "/register.html"
     },
     {
-      "source": "/student-dashboard",
-      "destination": "/pages/student-dashboard/student_dashboard.html"
-    },
-    {
       "source": "/owner-dashboard",
       "destination": "/pages/owner-dashboard/owner_dashboard.html"
     },

@@ -7,7 +7,6 @@ export default defineConfig({
                 main: 'index.html',
                 login: 'login.html',
                 register: 'register.html',
-                studentDashboard: 'pages/student-dashboard/student_dashboard.html',
                 ownerDashboard: 'pages/owner-dashboard/owner_dashboard.html',
                 propertyDescription: 'pages/property-description/property_description.html',
                 publishProperty: 'pages/publish-property/index.html',
