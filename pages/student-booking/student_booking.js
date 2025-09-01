@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    const API_URL = "http://localhost:3000";
+    const API_URL = "https://backendhospedaya.onrender.com";
     const statsEls = {
         total: document.querySelector(".stat-card:nth-child(1) h2"),
         pending: document.querySelector(".stat-card.yellow h2"),
