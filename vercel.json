@@ -1,15 +1,45 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
+      "source": "/login",
+      "destination": "/login.html"
+    },
     {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
+      "source": "/register",
+      "destination": "/register.html"
+    },
+    {
+      "source": "/admin-dashboard",
+      "destination": "/pages/admin-dashboard/admin_dashboard.html"
+    },
+    {
+      "source": "/student-dashboard",
+      "destination": "/pages/student-dashboard/student_dashboard.html"
+    },
+    {
+      "source": "/owner-dashboard",
+      "destination": "/pages/owner-dashboard/owner_dashboard.html"
+    },
+    {
+      "source": "/property-description",
+      "destination": "/pages/property-description/property_description.html"
+    },
+    {
+      "source": "/publish-property",
+      "destination": "/pages/publish-property/index.html"
+    },
+    {
+      "source": "/student-booking",
+      "destination": "/pages/student-booking/student_booking.html"
+    },
+    {
+      "source": "/students-serch",
+      "destination": "/pages/students-serch/student.html"
+    },
+    {
+      "source": "/users",
+      "destination": "/pages/users/index.html"
     }
   ]
 }
+

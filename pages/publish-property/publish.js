@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // 1️⃣ Crear el apartamento en el back
-            const apartmentResponse = await fetch('/api/apartment', {
+            const apartmentResponse = await fetch('https://backendhospedaya.onrender.com/apartment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('photo', file);
                     formData.append('description', title);
 
-                    const photoResponse = await fetch(`/api/apartment/${apartmentId}/photo`, {
+                    const photoResponse = await fetch(`https://backendhospedaya.onrender.com/apartment/${apartmentId}/photo`, {
                         method: 'POST',
                         body: formData
                     });
