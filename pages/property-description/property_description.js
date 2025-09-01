@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!apartmentId) return window.location.href = "../student-serch/student.html";
 
     try {
-        const aptRes = await fetch(`http://localhost:3000/apartment`);
+        const aptRes = await fetch(`https://backendhospedaya.onrender.com/apartment`);
         const apartments = await aptRes.json();
         const apartment = apartments.find(a => a.apartment_id == apartmentId);
 
-        const photoRes = await fetch(`http://localhost:3000/apartment/${apartmentId}/photos`);
+        const photoRes = await fetch(`https://backendhospedaya.onrender.com/apartment/${apartmentId}/photos`);
         const photos = photoRes.ok ? await photoRes.json() : [];
 
         document.querySelector(".title").textContent = apartment.title;
@@ -30,7 +30,7 @@ document.getElementById("reserveBtn").addEventListener("click", async () => {
     if (!startDate || !endDate) return alert("Selecciona fechas");
 
     try {
-        const res = await fetch("http://localhost:3000/booking", {
+        const res = await fetch("https://backendhospedaya.onrender.com/booking", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ user_id: user.id, apartment_id: apartmentId, start_date: startDate, end_date: endDate })

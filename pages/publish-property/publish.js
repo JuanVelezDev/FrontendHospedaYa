@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.createElement('input');
     const logoutBtn = document.querySelector('.logout-btn');
     const user = localStorage.getItem("user");
+
+    let selectedFiles = [];
     // Función para obtener y mostrar el nombre del usuario logueado
     function displayUserName() {
         
@@ -134,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // 1️⃣ Crear el apartamento en el back
-            const apartmentResponse = await fetch('http://localhost:3000/apartment', {
+            const apartmentResponse = await fetch('https://backendhospedaya.onrender.com/apartment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -160,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     formData.append('photo', file);
                     formData.append('description', title);
 
-                    const photoResponse = await fetch(`http://localhost:3000/apartment/${apartmentId}/photo`, {
+                    const photoResponse = await fetch(`https://backendhospedaya.onrender.com/apartment/${apartmentId}/photo`, {
                         method: 'POST',
                         body: formData
                     });
