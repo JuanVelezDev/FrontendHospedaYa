@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de API - HospedaYa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.pending { background: #fff3cd; color: #856404; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .response {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Prueba de Conectividad con el Backend</h1>
+    <p>Esta página te ayudará a verificar si el backend está funcionando correctamente.</p>
+
+    <div class="test-section">
+        <h2>📡 Estado del Backend</h2>
+        <div id="backendStatus">Verificando...</div>
+        <button onclick="testBackendStatus()">🔄 Verificar Estado</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🏠 Endpoints de Propiedades</h2>
+        <div class="endpoint">
+            <strong>GET /apartment</strong>
+            <span class="status pending" id="apartmentStatus">Pendiente</span>
+            <button onclick="testEndpoint('/apartment')">Probar</button>
+            <div class="response" id="apartmentResponse"></div>
+        </div>
+        <div class="endpoint">
+            <strong>GET /apartments</strong>
+            <span class="status pending" id="apartmentsStatus">Pendiente</span>
+            <button onclick="testEndpoint('/apartments')">Probar</button>
+            <div class="response" id="apartmentsResponse"></div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Endpoints de Reservas</h2>
+        <div class="endpoint">
+            <strong>GET /booking/owner/{id}/pending</strong>
+            <span class="status pending" id="pendingStatus">Pendiente</span>
+            <button onclick="testEndpoint('/booking/owner/1/pending')">Probar con ID 1</button>
+            <div class="response" id="pendingResponse"></div>
+        </div>
+        <div class="endpoint">
+            <strong>GET /booking/owner/{id}/all</strong>
+            <span class="status pending" id="allStatus">Pendiente</span>
+            <button onclick="testEndpoint('/booking/owner/1/all')">Probar con ID 1</button>
+            <div class="response" id="allResponse"></div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Prueba Completa</h2>
+        <button onclick="runAllTests()">🚀 Ejecutar Todas las Pruebas</button>
+        <div class="response" id="allTestsResponse"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://backendhospedaya.onrender.com';
+        
+        async function testEndpoint(endpoint) {
+            const url = API_BASE + endpoint;
+            const statusElement = document.getElementById(endpoint.replace(/\//g, '') + 'Status');
+            const responseElement = document.getElementById(endpoint.replace(/\//g, '') + 'Response');
+            
+            try {
+                statusElement.textContent = 'Probando...';
+                statusElement.className = 'status pending';
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    statusElement.textContent = '✅ OK';
+                    statusElement.className = 'status success';
+                    responseElement.textContent = JSON.stringify(data, null, 2);
+                } else {
+                    statusElement.textContent = `❌ ${response.status}`;
+                    statusElement.className = 'status error';
+                    responseElement.textContent = `Error ${response.status}: ${response.statusText}\n\nRespuesta: ${JSON.stringify(data, null, 2)}`;
+                }
+            } catch (error) {
+                statusElement.textContent = '❌ Error';
+                statusElement.className = 'status error';
+                responseElement.textContent = `Error de conexión: ${error.message}`;
+            }
+        }
+        
+        async function testBackendStatus() {
+            const statusElement = document.getElementById('backendStatus');
+            statusElement.innerHTML = 'Verificando conectividad...';
+            
+            try {
+                const response = await fetch(API_BASE);
+                if (response.ok) {
+                    statusElement.innerHTML = '✅ <strong>Backend funcionando correctamente</strong><br>URL: ' + API_BASE;
+                } else {
+                    statusElement.innerHTML = '⚠️ <strong>Backend responde pero con error</strong><br>Estado: ' + response.status;
+                }
+            } catch (error) {
+                statusElement.innerHTML = '❌ <strong>Error de conexión</strong><br>Mensaje: ' + error.message;
+            }
+        }
+        
+        async function runAllTests() {
+            const responseElement = document.getElementById('allTestsResponse');
+            responseElement.textContent = 'Ejecutando todas las pruebas...\n';
+            
+            const endpoints = [
+                '/apartment',
+                '/apartments',
+                '/booking/owner/1/pending',
+                '/booking/owner/1/all'
+            ];
+            
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(API_BASE + endpoint);
+                    const status = response.ok ? '✅' : '❌';
+                    responseElement.textContent += `${status} ${endpoint}: ${response.status} ${response.statusText}\n`;
+                } catch (error) {
+                    responseElement.textContent += `❌ ${endpoint}: Error de conexión\n`;
+                }
+            }
+            
+            responseElement.textContent += '\n✅ Pruebas completadas';
+        }
+        
+        // Ejecutar prueba inicial del estado del backend
+        testBackendStatus();
+    </script>
+</body>
+</html>
