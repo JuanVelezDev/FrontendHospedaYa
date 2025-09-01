@@ -66,3 +66,5 @@ function redirectByRole() {
         window.location.href = "./pages/publish-property/index.html";
     }
 }
+
+window.logout = logout;
