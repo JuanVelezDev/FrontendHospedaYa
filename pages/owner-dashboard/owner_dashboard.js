@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const userId = user.id; // id del propietario
-    const API_URL = "http://localhost:3000";
+    const API_URL = "https://backendhospedaya.onrender.com/";
 
     // Elementos del DOM
     const propiedadesActivasEl = document.getElementById("propiedadesActivas");
