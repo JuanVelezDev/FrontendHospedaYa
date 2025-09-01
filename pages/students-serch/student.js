@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 🔹 Cargar apartamentos desde el backend
     async function loadApartments() {
         try {
-            const response = await fetch("https://backendhospedaya.onrender.com/apartment");
+            const response = await fetch("http://localhost:3000/apartment");
             const apartments = await response.json();
 
             roomGrid.innerHTML = ""; // Limpiar los que estaban quemados en el HTML
@@ -45,6 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // 🔹 Cargar fotos de cada apartamento
                 loadApartmentPhotos(apartment.apartment_id, card.querySelector(".room-image img"));
+
+                const detailsBtn = card.querySelector(".view-details-btn");
+                detailsBtn.addEventListener("click", () => {
+                    localStorage.setItem("apartmentId", apartment.apartment_id);
+                    window.location.href = "../property-description/property_description.html";
+                });
             });
         } catch (error) {
             console.error("Error cargando apartamentos:", error);
@@ -54,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 🔹 Cargar fotos de un apartamento
     async function loadApartmentPhotos(apartmentId, imgElement) {
         try {
-            const response = await fetch(`https://backendhospedaya.onrender.com/apartment/${apartmentId}/photos`);
+            const response = await fetch(`http://localhost:3000/apartment/${apartmentId}/photos`);
             if (!response.ok) return; // Si no hay fotos, queda el placeholder
 
             const photos = await response.json();
